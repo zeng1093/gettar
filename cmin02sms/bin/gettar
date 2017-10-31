@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+filetest()
+{
+	if [ ! -e "$1" ]; then 
+		echo "do not exsit : $1"
+		exit 1
+	fi
+	echo "file exsit : $1"
+}
+
+if [ -z "$2" -o -z "$1" ]; then 
+	echo "Usage : `basename $0` name.tar.gz folder"
+	exit 1
+fi
+
+for folder in $*
+do
+	if test $folder != $1
+	then
+	filetest $folder
+	fi
+done
+$1 = "$1.tar.gz"
+echo "tar -czvf $*"
+tar -czvf $*
+echo "sz $1"
+sz $1
+rm -r $1
+echo "get tar file success!!!!!"
